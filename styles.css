@@ -1,0 +1,34 @@
+:root {
+    --dark-bg: #111;
+    --panel-bg: #1e1e24;
+    --blood-red: #8a0303;
+    --magic-blue: #034b8a;
+}
+
+body {
+    background-color: var(--dark-bg);
+    /* Fondo con capa oscura para garantizar legibilidad */
+    background-image: linear-gradient(rgba(17, 17, 17, 0.85), rgba(17, 17, 17, 0.95)), url('./assets/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #e0e0e0;
+}
+
+.panel {
+    background-color: var(--panel-bg);
+    border: 1px solid #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Animaciones de Daño */
+.shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}

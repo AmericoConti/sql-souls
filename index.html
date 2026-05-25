@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Souls - Abismo de Datos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="p-4 font-mono h-screen flex flex-col items-center justify-center">
+
+    <div class="w-full max-w-4xl panel p-6 rounded-lg relative overflow-hidden">
+        <header class="flex justify-between items-center border-b border-gray-700 pb-4 mb-4">
+            <div>
+                <h1 class="text-2xl font-bold text-red-500 tracking-widest uppercase shadow-black drop-shadow-md">SQL Souls</h1>
+                <p class="text-xs text-gray-400">El Abismo de Datos</p>
+            </div>
+            <div class="flex gap-2 items-center">
+                <button id="muteBtn" onclick="AudioSys.toggleMute()" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 p-2 rounded text-xs transition text-gray-300">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+                <button onclick="GameEngine.setClass('warrior')" class="bg-red-900/50 hover:bg-red-700 border border-red-900 p-2 rounded text-xs transition"><i class="fa-solid fa-khanda"></i> Guerrero</button>
+                <button onclick="GameEngine.setClass('mage')" class="bg-blue-900/50 hover:bg-blue-700 border border-blue-900 p-2 rounded text-xs transition"><i class="fa-solid fa-wand-magic-sparkles"></i> Mago</button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <div class="flex justify-between text-xs mb-1 text-red-400 font-bold"><span>HP (Salud)</span><span id="hpText">100/100</span></div>
+                <div class="w-full bg-gray-800 h-3 rounded"><div id="hpBar" class="bg-red-600 h-3 rounded transition-all duration-300" style="width: 100%"></div></div>
+            </div>
+            <div>
+                <div class="flex justify-between text-xs mb-1 text-blue-400 font-bold"><span>SP (Stamina/Magia)</span><span id="spText">100/100</span></div>
+                <div class="w-full bg-gray-800 h-3 rounded"><div id="spBar" class="bg-blue-600 h-3 rounded transition-all duration-300" style="width: 100%"></div></div>
+            </div>
+        </div>
+
+        <div class="bg-black/50 p-4 rounded border border-gray-700 mb-4">
+            <div class="flex justify-between items-center mb-2">
+                <h2 id="questName" class="text-xl font-bold text-yellow-500">Misión...</h2>
+                <span id="questLevel" class="text-xs bg-gray-800 px-2 py-1 rounded text-gray-300">Nivel 1</span>
+            </div>
+            <p id="questDesc" class="text-sm text-gray-300 mb-2">...</p>
+            <p id="questSchema" class="text-xs text-green-400 font-bold">...</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+                <textarea id="sqlInput" class="w-full h-32 bg-gray-900 border border-gray-600 text-green-400 p-3 font-mono text-sm rounded resize-none focus:outline-none focus:border-yellow-500 transition" placeholder="Escribe tu ataque SQL aquí..."></textarea>
+                
+                <div class="flex gap-2 mt-2">
+                    <button onclick="GameEngine.attack()" class="w-2/3 bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition">ATACAR</button>
+                    <button onclick="OracleSys.ask()" class="w-1/3 bg-purple-900 hover:bg-purple-700 text-white font-bold py-2 px-4 border border-purple-500 rounded transition"><i class="fa-solid fa-eye"></i> Oráculo</button>
+                </div>
+            </div>
+            <div class="bg-black/80 border border-gray-700 rounded p-2 h-32 overflow-y-auto flex flex-col-reverse text-xs font-mono space-y-1" id="logBox">
+                </div>
+        </div>
+
+        <div class="border-t border-gray-700 pt-3 flex justify-between items-center text-xs text-gray-500">
+            <div>
+                <label for="apiKey"><i class="fa-solid fa-key"></i> Oráculo API Key: </label>
+                <input id="apiKey" type="password" class="bg-gray-800 border border-gray-600 rounded px-2 py-1 ml-1 text-gray-300 focus:outline-none">
+            </div>
+            <div>SQL Souls v2.0</div>
+        </div>
+    </div>
+
+    <script>
+    window.onerror = function(msg, src, line, col, err) {
+        console.error("🔥 Error Crítico:", msg, "| Línea:", line);
+        const logBox = document.getElementById("logBox");
+        if (logBox) {
+            const errorDiv = document.createElement("div");
+            errorDiv.className = "border-l-2 border-red-700 pl-2 py-1 text-red-500 font-bold text-xs";
+            errorDiv.innerHTML = `⚠️ FATAL ERROR: ${msg} (Línea ${line})`;
+            logBox.prepend(errorDiv);
+        }
+    };
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alasql@4.6/dist/alasql.min.js"></script>
+    <script defer src="./achievements.js"></script>
+    <script defer src="./quests.js"></script>
+    <script defer src="./database.js"></script>
+    <script defer src="./app.js"></script>
+
+</body>
+</html>
