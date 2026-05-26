@@ -1,34 +1,200 @@
-:root {
-    --dark-bg: #111;
-    --panel-bg: #1e1e24;
-    --blood-red: #8a0303;
-    --magic-blue: #034b8a;
+:root{
+    --dark-bg:#111;
+    --panel-bg:#1e1e24;
+    --blood-red:#8a0303;
+    --magic-blue:#034b8a;
 }
 
-body {
-    background-color: var(--dark-bg);
-    /* Fondo con capa oscura para garantizar legibilidad */
-    background-image: linear-gradient(rgba(17, 17, 17, 0.85), rgba(17, 17, 17, 0.95)), url('./assets/bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #e0e0e0;
+body{
+    background-color:var(--dark-bg);
+    background-image:linear-gradient(rgba(17,17,17,.85),rgba(17,17,17,.95)),url('./assets/bg.jpg');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    color:#e0e0e0;
 }
 
-.panel {
-    background-color: var(--panel-bg);
-    border: 1px solid #333;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+.panel{
+    background-color:var(--panel-bg);
+    border:1px solid #333;
+    box-shadow:0 4px 6px rgba(0,0,0,.5);
 }
 
-/* Animaciones de Daño */
-.shake {
-    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+/* ==========================================
+   ANIMACIONES
+========================================== */
+
+.shake{
+    animation:shake .5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
-@keyframes shake {
-    10%, 90% { transform: translate3d(-1px, 0, 0); }
-    20%, 80% { transform: translate3d(2px, 0, 0); }
-    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-    40%, 60% { transform: translate3d(4px, 0, 0); }
+@keyframes shake{
+    10%,90%{transform:translate3d(-1px,0,0);}
+    20%,80%{transform:translate3d(2px,0,0);}
+    30%,50%,70%{transform:translate3d(-4px,0,0);}
+    40%,60%{transform:translate3d(4px,0,0);}
+}
+
+@keyframes pulse-white{
+    0%{box-shadow:0 0 0 0 rgba(255,255,255,.7);}
+    70%{box-shadow:0 0 0 10px rgba(255,255,255,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}
+}
+
+.animate-pulse{
+    animation:pulse-white 2s infinite;
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+.custom-scrollbar::-webkit-scrollbar{
+    width:3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb{
+    background:#333;
+    border-radius:10px;
+}
+
+/* ==========================================
+   MAPA
+========================================== */
+
+#soulMap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0;
+    padding:20px 0;
+    width:100%;
+    min-height:200px;
+    max-height:45vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+.node-wrapper{
+    position:relative;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:30px;
+}
+
+.soul-node{
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    border:2px solid;
+    transition:all .5s cubic-bezier(.4,0,.2,1);
+    z-index:2;
+    cursor:help;
+    background-color:var(--dark-bg);
+}
+
+.map-connector{
+    position:absolute;
+    width:2px;
+    z-index:1;
+    transform-origin:top center;
+    opacity:.6;
+}
+
+.map-container{
+    max-height:45vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+    width:100%;
+}
+
+/* ==========================================
+   ESTADOS NODOS
+========================================== */
+
+.node-passed{
+    background-color:#ca8a04;
+    border-color:#facc15;
+    box-shadow:0 0 12px rgba(234,179,8,.6);
+}
+
+.node-current{
+    background-color:var(--blood-red);
+    border-color:#fff;
+    box-shadow:0 0 20px rgba(255,255,255,.4);
+    animation:pulse-white 2s infinite;
+    z-index:10;
+}
+
+.node-locked{
+    background-color:#111827;
+    border-color:#374151;
+    opacity:.3;
+}
+
+.boss-node{
+    border-radius:2px;
+}
+
+/* ==========================================
+   STATS
+========================================== */
+
+.stat-card{
+    background:rgba(0,0,0,.45);
+    border:1px solid #262626;
+    border-radius:6px;
+    padding:8px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.stat-title{
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+    color:#666;
+    margin-bottom:2px;
+}
+
+.stat-value{
+    font-size:12px;
+    font-weight:bold;
+    color:#d4d4d4;
+}
+
+/* ==========================================
+   TEXTAREA
+========================================== */
+
+#sqlInput{
+    resize:none;
+    line-height:1.6;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:768px){
+
+    #soulMap{
+        max-height:180px;
+    }
+
+    .stat-card{
+        padding:6px;
+    }
+
+    .stat-value{
+        font-size:11px;
+    }
 }
